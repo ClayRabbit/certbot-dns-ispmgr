@@ -1,12 +1,19 @@
-#!/bin/bash
+#!/bin/sh
 
 _dir="$(dirname "$0")"
 
-source "$_dir/config.sh"
+. "$_dir/config.sh"
 
 # Remove the challenge TXT record from the zone
 DOMAIN_ID="_acme-challenge.$CERTBOT_DOMAIN. TXT  $CERTBOT_VALIDATION"
-RESULT=$(curl -s -X POST "https://$ISPMGR:1500/ispmgr" \
-  -d "authinfo=$USER:$PASS&out=sjson&func=domain.record.delete&elid=$DOMAIN_ID&plid=$CERTBOT_DOMAIN")
+if [ -n "$ISPMGR" ] && [ -n "$USER" ] && [ -n "$PASS" ]; then
+    RESULT=$(curl -ksX POST "$ISPMGR" -d "func=domain.sublist.delete&sok=ok" \
+        --data-urlencode "authinfo=$USER:$PASS" \
+        --data-urlencode "plid=$CERTBOT_DOMAIN" \
+        --data-urlencode "elid=$DOMAIN_ID" \
+    )
+else
+    RESULT=$(/usr/local/ispmgr/sbin/mgrctl -m ispmgr domain.sublist.delete sok=ok "plid=$CERTBOT_DOMAIN" "elid=$DOMAIN_ID")
+fi
 
 echo $RESULT
