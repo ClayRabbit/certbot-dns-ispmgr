@@ -8,7 +8,7 @@ Install and renew Let's encrypt wildcard ssl certificate for domain *.site.com u
 git clone https://github.com/ClayRabbit/certbot-dns-ispmgr4 && cd ./certbot-dns-ispmgr4 && chmod +x *.sh
 ```
 
-#### 2) Set API KEY
+#### 2) Set ISPmanager url and auth data
 
 Set your user name, password and host from ISPmanager:
 
