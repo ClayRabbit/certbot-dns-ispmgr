@@ -23,10 +23,10 @@ nano ./config.sh
 
 #### 4) Generate wildcard
 ```bash
-./certbot certonly --agree-tos --manual-public-ip-logging-ok --manual-auth-hook ../certbot-dns-ispmgr4/authenticator.sh --manual-cleanup-hook ../certbot-dns-ispmgr/cleanup.sh --preferred-challenges dns-01 -d 'site.com,*.site.com'
+certbot certonly --agree-tos --manual-public-ip-logging-ok --manual-auth-hook ../certbot-dns-ispmgr4/authenticator.sh --manual-cleanup-hook ../certbot-dns-ispmgr/cleanup.sh --preferred-challenges dns-01 -d 'site.com,*.site.com'
 ```
 
 #### 5) Force Renew
 ```bash
-./certbot renew --force-renew
+certbot renew --force-renew
 ```
